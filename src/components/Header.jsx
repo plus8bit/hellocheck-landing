@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,25 +9,37 @@ import { motion } from "framer-motion";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // только секции для скролла
   const navItems = [
     { label: "Features", href: "#features" },
     { label: "How it works", href: "#steps" },
     { label: "Try the app", href: "#cta" },
+    {
+      label: "Contact",
+      href: "mailto:hello@hellocheck.app?subject=HelloCheck%20feedback&body=Hi%20HelloCheck%20team,%0D%0A",
+    },
   ];
+
+  const handleNavClick = (href) => {
+    // якоря внутри страницы
+    if (href.startsWith("#")) {
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+      setIsMenuOpen(false);
+      return;
+    }
+
+    // внешние ссылки / mailto
+    window.location.href = href;
+    setIsMenuOpen(false);
+  };
 
   const scrollToSection = (href) => {
     const el = document.querySelector(href);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
-    setIsMenuOpen(false);
-  };
-
-  const openMail = () => {
-    // самый прямой способ открыть почтовый клиент
-    window.location.href =
-      "mailto:hello@hellocheck.app?subject=HelloCheck%20feedback&body=Hi%20HelloCheck%20team,%0D%0A";
     setIsMenuOpen(false);
   };
 
@@ -45,7 +58,11 @@ export default function Header() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSection("#hero")}
           >
-            <span className="text-2xl">🧾</span>
+            <img
+              src="/helloCheckLogo.jpg"
+              alt="HelloCheck logo"
+              className="w-8 h-8 rounded-xl shadow-sm object-contain"
+            />
             <span className="text-xl font-bold text-gray-900">HelloCheck</span>
           </motion.div>
 
@@ -54,29 +71,20 @@ export default function Header() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavClick(item.href)}
                 className="text-gray-700 hover:text-primary font-medium transition-colors"
               >
                 {item.label}
               </button>
             ))}
-
-            {/* Contact — отдельная кнопка, открывает mailto */}
-            <button
-              onClick={openMail}
-              className="text-gray-700 hover:text-primary font-medium transition-colors"
-            >
-              Contact
-            </button>
-
-            <motion.button
+            <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection("#cta")}
+              href="https://t.me/HelloCheckAppBot"
               className="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
             >
               Try HelloCheck →
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,27 +108,18 @@ export default function Header() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavClick(item.href)}
                 className="block w-full text-left text-gray-700 hover:text-primary font-medium transition-colors"
               >
                 {item.label}
               </button>
             ))}
-
-            {/* Contact в мобильном меню */}
-            <button
-              onClick={openMail}
-              className="block w-full text-left text-gray-700 hover:text-primary font-medium transition-colors"
-            >
-              Contact
-            </button>
-
-            <button
-              onClick={() => scrollToSection("#cta")}
-              className="w-full bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+            <a
+              href="https://t.me/HelloCheckAppBot"
+              className="w-full inline-flex justify-center bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
             >
               Try HelloCheck →
-            </button>
+            </a>
           </motion.div>
         )}
       </nav>
