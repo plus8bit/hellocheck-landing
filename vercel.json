@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/app", "destination": "https://hellocheck-1nhhjk36g-plus8bits-projects.vercel.app" }
+    ]
+  }
+  
