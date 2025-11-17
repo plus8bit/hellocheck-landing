@@ -52,7 +52,6 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-2 mb-4"
             >
-              <span className="text-2xl">🧾</span>
               <span className="text-xl font-bold text-white">HelloCheck</span>
             </motion.div>
             <p className="text-gray-400 mb-4 max-w-md">
