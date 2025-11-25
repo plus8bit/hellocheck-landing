@@ -59,7 +59,7 @@ export default function Header() {
             onClick={() => scrollToSection("#hero")}
           >
             <img
-              src="/helloCheckLogo.jpg"
+              src="/01.png"
               alt="HelloCheck logo"
               className="w-8 h-8 rounded-xl shadow-sm object-contain"
             />
